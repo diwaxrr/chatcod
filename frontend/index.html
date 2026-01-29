@@ -1,0 +1,166 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Asistente Creativo - Crea sin saber programar</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <!-- Header unificado con controles -->
+        <header class="app-header-unified">
+            <!-- Logo y título -->
+            <div class="header-left">
+                <div class="logo">
+                    <i class="fas fa-code"></i>
+                    <h1>ChatCod</h1>
+                </div>
+                <div class="subtitle">
+                    <span class="tagline">Mientras conversas, crea!</span>
+                    <span class="status">
+                        <i class="fas fa-circle"></i>
+                        <span id="connectionStatus">Conectado</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Controles principales -->
+            <div class="header-controls">
+                <button id="refreshPreview" class="btn-header" title="Actualizar vista">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <button id="openPreview" class="btn-header" title="Abrir en nueva pestaña">
+                    <i class="fas fa-external-link-alt"></i>
+                </button>
+                <button id="downloadAllBtn" class="btn-header" disabled title="Descargar proyecto">
+                    <i class="fas fa-download"></i>
+                    <span>Descargar</span>
+                </button>
+                <button id="openFolderBtn" class="btn-header" disabled title="Abrir carpeta">
+                    <i class="fas fa-folder-open"></i>
+                    <span>Abrir</span>
+                </button>
+                <button id="publishBtn" class="btn-header" title="Publicar online">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Publicar</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Barra de controles 
+        <div class="controls-bar">
+            <div class="controls-left">
+                <span class="status-indicator">
+                    <i class="fas fa-circle" style="color: #4CAF50;"></i>
+                    Conectado
+                </span>
+            </div>
+            <div class="controls-right">
+                <button id="downloadAllBtn" class="btn-control" disabled>
+                    <i class="fas fa-download"></i> Descargar
+                </button>
+                <button id="openFolderBtn" class="btn-control" disabled>
+                    <i class="fas fa-folder-open"></i> Abrir carpeta
+                </button>
+                <button id="publishBtn" class="btn-control">
+                    <i class="fas fa-cloud-upload-alt"></i> Publicar
+                </button>
+            </div>
+        </div> -->
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Chat Panel -->
+            <div class="chat-panel">
+                <div class="chat-header">
+                    <h2><i class="fas fa-comments"></i> Conversación</h2>
+                    <!-- En .header-controls, al inicio -->
+                    <button id="newSessionBtn" class="btn-header" title="Nueva conversación">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Nueva</span>
+                    </button>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Mensajes aparecen aquí -->
+                    <div class="message assistant welcome">
+                        <div class="avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="content">
+                            <p style="font-size: 1.2em;">¿Hola, qué te quieres crear hoy?</p>
+                            <button id="startBtn" class="btn-primary">
+                                <i class="fas fa-comments"></i> Comencemos Ahora!
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-input-container">
+                    <div class="input-wrapper">
+                        <input type="text" 
+                               id="userInput" 
+                               placeholder="Describe lo que quieres crear"
+                               disabled>
+                        <button id="sendBtn" class="btn-send" disabled>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="input-hints">
+                        <span class="hint"><br><i class="fas fa-lightbulb"></i> Sé específico: "fotos", "logo", "texto", lo que tengas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview Panel -->
+            <div class="preview-panel">                
+                <div class="preview-container">
+                    <div class="preview-placeholder" id="previewPlaceholder">
+                        <div class="placeholder-content">
+                            <i class="fas fa-laptop-code fa-4x"></i>
+                            <h3>Tu creación aparecerá aquí</h3>
+                            <p>Describe lo que quieres en el chat y verás cómo se construye en tiempo real.</p>
+                            <div class="placeholder-features">
+                                <div class="feature">
+                                    <i class="fas fa-bolt"></i>
+                                    <span>Generación instantánea</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-sync"></i>
+                                    <span>Actualización en vivo</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-download"></i>
+                                    <span>Descarga todo con un click</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <iframe id="previewFrame" class="preview-frame" style="display: none;"></iframe>
+                </div>
+                
+                
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <p>
+                    <span class="footer-heart">❤</span> 
+                    Hecho para creadores 
+                    <span class="footer-separator">•</span>
+                    <span class="footer-privacy">100% local, 100% privado</span>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>

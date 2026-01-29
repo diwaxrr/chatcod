@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tu Asistente Creativo</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        #chat {
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .user { color: blue; }
+        .assistant { color: green; }
+    </style>
+</head>
+<body>
+    <h1>¿Qué quieres crear hoy?</h1>
+    
+    <div id="chat">
+        <div class="assistant">¡Hola! Soy tu asistente para crear lo que necesites. ¿Qué tienes en mente?</div>
+    </div>
+    
+    <input type="text" id="userInput" placeholder="Describe tu idea aquí..." style="width: 100%; padding: 10px;">
+    <button onclick="sendMessage()" style="margin-top: 10px; padding: 10px 20px;">Enviar</button>
+    
+    <script>
+        let conversation = [];
+        
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value;
+            
+            if (!message) return;
+            
+            // Mostrar mensaje usuario
+            const chat = document.getElementById('chat');
+            chat.innerHTML += `<div class="user"><strong>Tú:</strong> ${message}</div>`;
+            
+            // Detectar tipo de usuario (simplificado)
+            const userType = detectUserType(message);
+            
+            // Enviar a backend local
+            const response = await processMessage(message, userType);
+            
+            // Mostrar mi respuesta
+            chat.innerHTML += `<div class="assistant"><strong>Asistente:</strong> ${response}</div>`;
+            
+            // Si hay archivos generados, mostrar
+            if (response.includes('generado')) {
+                showPreviewButton();
+            }
+            
+            input.value = '';
+            chat.scrollTop = chat.scrollHeight;
+        }
+        
+        function detectUserType(message) {
+            const techTerms = ['hosting', 'dominio', 'zip', 'deploy', 'git', 'api'];
+            const devTerms = ['stack', 'framework', 'database', 'endpoint'];
+            
+            if (devTerms.some(term => message.toLowerCase().includes(term))) {
+                return 'developer';
+            } else if (techTerms.some(term => message.toLowerCase().includes(term))) {
+                return 'entrepreneur';
+            }
+            return 'creator';
+        }
+        
+        async function processMessage(message, userType) {
+            // Aquí conectarías con tu backend local
+            // Que se comunica con mi API
+            // Por ahora demo:
+            
+            if (message.toLowerCase().includes('tienda')) {
+                return `Perfecto, hagamos una tienda online. Primero: 
+                1. ¿Qué productos vendes?
+                2. ¿Tienes fotos de ellos?
+                3. ¿Cómo quieres que te paguen?
+                
+                Voy generando el sitio mientras conversamos.`;
+            }
+            
+            return `Entendido. Voy a crear eso para ti. Mientras, ¿puedes contarme más detalles?`;
+        }
+        
+        function showPreviewButton() {
+            const button = document.createElement('button');
+            button.textContent = '🔍 Ver Vista Previa';
+            button.onclick = () => {
+                window.open('http://localhost:3000', '_blank');
+            };
+            button.style.marginTop = '10px';
+            button.style.padding = '10px';
+            document.body.appendChild(button);
+        }
+    </script>
+</body>
+</html>
